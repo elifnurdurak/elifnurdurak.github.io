@@ -36,5 +36,57 @@ export const galleryCategoryLabels: Readonly<Record<GalleryCategory, string>> = 
   other: "Diğer",
 };
 
-/** Photos shown on the site. Empty until the owner provides images. */
-export const galleryItems: readonly GalleryItem[] = [];
+/**
+ * Photos shown on the site, in display order (the home page teaser shows the first six).
+ * Files were prepared with `scripts/optimize-images.mjs`; width/height are the final pixel size.
+ */
+export const galleryItems: readonly GalleryItem[] = [
+  {
+    id: "office-event-cupcake",
+    src: "/images/work/office-event-cupcake.jpg",
+    category: "work",
+    altText: "Ofis etkinliğinde bir elinde fotoğraf kartı, diğerinde kek tutan gülümseyen kişi",
+    width: 1500,
+    height: 2000,
+  },
+  {
+    id: "elevator-laptop-lanyard",
+    src: "/images/work/elevator-laptop-lanyard.jpg",
+    category: "work",
+    altText: "Asansör aynasında, elinde dizüstü bilgisayar ve yaka kartıyla çekilmiş fotoğraf",
+    width: 1500,
+    height: 2000,
+  },
+  {
+    id: "painted-vase",
+    src: "/images/art-ceramics/painted-vase.jpg",
+    category: "art-ceramics",
+    altText: "Elinde fırçayla, mavi meyve dallarıyla boyadığı pembe vazonun yanında poz veren kişi",
+    width: 1500,
+    height: 2000,
+  },
+  {
+    id: "windy-bridge-run",
+    src: "/images/other/windy-bridge-run.jpg",
+    category: "other",
+    altText: "Köprü üzerinde rüzgârda savrulan saçlarıyla gülümseyen, güneş gözlüklü kişi",
+    width: 1700,
+    height: 1500,
+  },
+  {
+    id: "charity-run-hotel-mirror",
+    src: "/images/other/charity-run-hotel-mirror.jpg",
+    category: "other",
+    altText: "Mor koşu tişörtüyle otel koridorundaki aynada çekilmiş boy fotoğrafı",
+    width: 923,
+    height: 1540,
+  },
+  {
+    id: "iridescent-portrait",
+    src: "/images/portraits/iridescent-portrait.jpg",
+    category: "portraits",
+    altText: "Siyah arka planda, ışıltılı ve yansımalı stilize bir portre",
+    width: 923,
+    height: 1384,
+  },
+];

@@ -37,7 +37,9 @@ export function GalleryTeaser() {
                   height={item.height}
                   loading="lazy"
                   decoding="async"
-                  className="float-hover aspect-[4/3] w-full rounded-2xl object-cover"
+                  // `object-[50%_25%]`: the preview is cropped to a landscape box, so anchor the crop
+                  // near the top where faces usually are instead of the exact centre.
+                  className="float-hover aspect-[4/3] w-full rounded-2xl object-cover object-[50%_25%]"
                 />
               </Reveal>
             </li>

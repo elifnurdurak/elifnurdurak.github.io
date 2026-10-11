@@ -12,6 +12,16 @@ Photos live in `public/images/`, one folder per category. The folder names are f
 | `public/images/portraits/`            | Portraits                             |
 | `public/images/other/`                | Anything else                         |
 
+## Quick way: prepare a photo with the script
+
+```
+node scripts/optimize-images.mjs <original-file> public/images/<category>/<new-name>.jpg
+```
+
+It fixes rotation, shrinks the image to at most 2000 px, compresses it and **removes hidden
+metadata such as GPS location**. Add `--crop left,top,width,height` to cut off edges (for example
+the borders of a phone screenshot). It prints the final width and height to put in `gallery.ts`.
+
 ## Rules
 
 1. **File names:** lowercase English words separated by hyphens, e.g. `devfest-2024-talk.jpg`.

@@ -129,6 +129,16 @@ Contents: [Runtime](#runtime-dependencies) · [Development](#development-depende
 - **Used in:** `eslint.config.mjs`.
 - **Added:** 2026-10-11
 
+### `sharp`
+
+- **Version:** 0.35.5
+- **Purpose:** Fast image processing used by `scripts/optimize-images.mjs`: resize, crop, re-encode and strip metadata (GPS location, device info) from photos before they are committed.
+- **Why:** The static export has no image optimizer, so photos must be prepared by hand. Also removes private metadata from public photos.
+- **License:** Apache-2.0. The bundled libvips binaries (`@img/sharp-libvips-*`) are LGPL-3.0, which is fine for a build-time tool whose binaries are not shipped with the site.
+- **Compatibility:** Node >= 20.9; prebuilt native binaries for Windows, macOS and Linux install automatically as optional dependencies.
+- **Used in:** `scripts/optimize-images.mjs` only. It is a development tool and never reaches the published site.
+- **Added:** 2026-10-11
+
 ### `prettier`
 
 - **Version:** 3.9.10
