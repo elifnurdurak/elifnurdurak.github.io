@@ -26,8 +26,8 @@
   --color-sand: #f0eee9;
 
   /* Fonts are provided by next/font in `layout.tsx` through these CSS variables. */
-  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
@@ -38,6 +38,9 @@ body {
   background: var(--color-water-abyss);
   color: var(--color-water-abyss);
   font-family: var(--font-sans);
+  /* Why: Instrument Serif has only a regular weight. Without this, classes like `font-semibold`
+   * would make the browser fake a bold by smearing the glyphs, which looks blurry. */
+  font-synthesis-weight: none;
 }
 
 /* ---------------------------------------------------------------------------------------

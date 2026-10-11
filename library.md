@@ -251,22 +251,30 @@ Contents: [Runtime](#runtime-dependencies) · [Development](#development-depende
 
 Loaded through `next/font/google` in `src/app/layout.tsx` (downloaded at build time, self-hosted).
 
-| Font     | Role             | License     | Source                                    |
-| -------- | ---------------- | ----------- | ----------------------------------------- |
-| Fraunces | Headings (serif) | SIL OFL 1.1 | https://github.com/undercasetype/Fraunces |
-| Inter    | Body text (sans) | SIL OFL 1.1 | https://github.com/rsms/inter             |
+**Pairing A** (approved by the owner 2026-10-11): calm, elegant, sophisticated.
 
-### Fonts proposed, awaiting owner review
+| Font             | Role                    | License     | Source                                         | Notes                                                                                |
+| ---------------- | ----------------------- | ----------- | ---------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Instrument Serif | Headings (`font-serif`) | SIL OFL 1.1 | https://github.com/Instrument/instrument-serif | Single weight (400), so `font-synthesis-weight: none` is set to avoid a faked bold   |
+| Geist            | Body text (`font-sans`) | SIL OFL 1.1 | https://github.com/vercel/geist-font           | Variable font (weights 100-900); `latin` + `latin-ext` subsets cover Turkish letters |
+
+### Fonts approved, not in use
+
+**Pairing B** (approved by the owner 2026-10-11 as the alternative): livelier and friendlier. To switch,
+change the two font imports in `src/app/layout.tsx` and the `--font-serif` / `--font-sans` tokens in
+`src/app/globals.css`, then update this section.
 
 License verified against each project's `OFL.txt` in the `google/fonts` repository on 2026-10-11, and
-confirmed available in `next/font/google`. **Not installed or used yet.**
+confirmed available in `next/font/google`.
 
-| Font                | Suggested role                           | License     | Source                                         |
-| ------------------- | ---------------------------------------- | ----------- | ---------------------------------------------- |
-| Instrument Serif    | Headings (modern, elegant display serif) | SIL OFL 1.1 | https://github.com/Instrument/instrument-serif |
-| Bricolage Grotesque | Headings (expressive modern sans)        | SIL OFL 1.1 | https://github.com/ateliertriay/bricolage      |
-| Geist               | Body text (clean, modern sans)           | SIL OFL 1.1 | https://github.com/vercel/geist-font           |
-| Plus Jakarta Sans   | Body text (friendly, modern sans)        | SIL OFL 1.1 | https://github.com/tokotype/PlusJakartaSans    |
+| Font                | Role                              | License     | Source                                      |
+| ------------------- | --------------------------------- | ----------- | ------------------------------------------- |
+| Bricolage Grotesque | Headings (expressive modern sans) | SIL OFL 1.1 | https://github.com/ateliertriay/bricolage   |
+| Plus Jakarta Sans   | Body text (friendly, modern sans) | SIL OFL 1.1 | https://github.com/tokotype/PlusJakartaSans |
+
+### Fonts removed
+
+Fraunces and Inter (both SIL OFL 1.1) were used until 2026-10-11 and replaced by pairing A.
 
 ### Icons
 
