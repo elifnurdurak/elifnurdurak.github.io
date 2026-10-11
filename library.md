@@ -8,6 +8,23 @@ same change. `npm run check:library` fails if names or versions drift apart.
 **Install policy:** exact versions only (no `^` / `~`), verified with `npm view <pkg> version license peerDependencies engines`
 before install, then `npm audit` and `npm ls` after install.
 
+## Licensing and review policy (owner decision, 2026-10-11)
+
+Applies to **fonts, icons, animations and animation libraries** (and to npm packages in general).
+
+1. **Free and open-source licenses only.** Allowed: OFL-1.1 (fonts), MIT, Apache-2.0, ISC, BSD-2/3-Clause,
+   CC0, and CC-BY (only with attribution recorded here). **Not allowed:** paid or trial assets, "free for
+   personal use" licenses, and "no charge but not open source" licenses (this is why GSAP was removed).
+2. **Owner review before use.** Nothing in these categories is installed, downloaded or added to the site
+   until the owner has seen the proposal (name, license, source link, preview or description) and approved it.
+3. **Record every asset here** in the same change that adds it: name, version, license, source URL, where it
+   is used. Fonts and icons are not npm packages, so they are listed in
+   [Fonts, icons and animation assets](#fonts-icons-and-animation-assets) instead of being checked by
+   `npm run check:library`.
+4. **Self-host where possible** (no runtime requests to third-party servers): `next/font` downloads fonts at
+   build time and serves them from our own domain.
+5. **Verify the license at the source** (the project's own `LICENSE`/`OFL.txt`), not only a website listing.
+
 Last audit: 2026-10-11. Production dependencies: **0 vulnerabilities**.
 Dev dependencies: 5 advisories, all one chain (see [Known advisories](#known-advisories)).
 
@@ -225,6 +242,41 @@ Contents: [Runtime](#runtime-dependencies) · [Development](#development-depende
 - **Compatibility:** requires Node >= 22.
 - **Used in:** `vitest.setup.ts`.
 - **Added:** 2026-10-11
+
+---
+
+## Fonts, icons and animation assets
+
+### Fonts in use
+
+Loaded through `next/font/google` in `src/app/layout.tsx` (downloaded at build time, self-hosted).
+
+| Font     | Role             | License     | Source                                    |
+| -------- | ---------------- | ----------- | ----------------------------------------- |
+| Fraunces | Headings (serif) | SIL OFL 1.1 | https://github.com/undercasetype/Fraunces |
+| Inter    | Body text (sans) | SIL OFL 1.1 | https://github.com/rsms/inter             |
+
+### Fonts proposed, awaiting owner review
+
+License verified against each project's `OFL.txt` in the `google/fonts` repository on 2026-10-11, and
+confirmed available in `next/font/google`. **Not installed or used yet.**
+
+| Font                | Suggested role                           | License     | Source                                         |
+| ------------------- | ---------------------------------------- | ----------- | ---------------------------------------------- |
+| Instrument Serif    | Headings (modern, elegant display serif) | SIL OFL 1.1 | https://github.com/Instrument/instrument-serif |
+| Bricolage Grotesque | Headings (expressive modern sans)        | SIL OFL 1.1 | https://github.com/ateliertriay/bricolage      |
+| Geist               | Body text (clean, modern sans)           | SIL OFL 1.1 | https://github.com/vercel/geist-font           |
+| Plus Jakarta Sans   | Body text (friendly, modern sans)        | SIL OFL 1.1 | https://github.com/tokotype/PlusJakartaSans    |
+
+### Icons
+
+None from third parties. The decorative illustrations (kelp, coral, iceberg, symbiosis, wave) are original inline SVG
+written for this project in `src/components/effects/illustrations.tsx`.
+
+### Animation
+
+No animation library. All motion is plain CSS in `src/app/globals.css`. If a library is ever considered, it
+needs a proposal and owner approval under the policy above first.
 
 ---
 
