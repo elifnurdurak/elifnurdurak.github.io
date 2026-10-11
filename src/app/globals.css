@@ -1,0 +1,291 @@
+/*
+ * Global styles, design tokens and CSS animations.
+ *
+ * Purpose: load Tailwind CSS v4, declare the "Dive" palette and typography as theme tokens,
+ * and define every animation used by the site. All motion is plain CSS (no animation library:
+ * only keyframes, transitions and native scroll-driven animations).
+ * Every token becomes a utility class automatically, for example `--color-water-deep`
+ * -> `bg-water-deep`, `text-water-deep`, `border-water-deep`.
+ */
+@import "tailwindcss";
+
+@theme {
+  /* Water palette, from the sunlit surface down to the abyss (concept palette v2). */
+  --color-water-surface: #bbe7e6;
+  --color-water-shallow: #7fcad8;
+  --color-water-mid: #0085ad;
+  --color-water-twilight: #005a80;
+  --color-water-deep: #00263e;
+  --color-water-abyss: #101820;
+
+  /* Accents: coral is for calls to action, glow is for bioluminescent highlights. */
+  --color-coral: #ff6f61;
+  --color-glow: #7ce0d3;
+
+  /* Light text/background tone used on bright zones. */
+  --color-sand: #f0eee9;
+
+  /* Fonts are provided by next/font in `layout.tsx` through these CSS variables. */
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-water-abyss);
+  color: var(--color-water-abyss);
+  font-family: var(--font-sans);
+}
+
+/* ---------------------------------------------------------------------------------------
+ * Keyframes
+ * ------------------------------------------------------------------------------------- */
+
+/* A bubble rises from below the viewport to above it. */
+@keyframes bubble-rise {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-120vh);
+  }
+}
+
+/* Sideways drift. Why `translate` (not `transform`): it animates independently, so it can run
+ * at the same time as `bubble-rise` on one element. */
+@keyframes bubble-sway {
+  from {
+    translate: -10px 0;
+  }
+  to {
+    translate: 10px 0;
+  }
+}
+
+/* Cursor trail bubble: floats up a little and fades out. */
+@keyframes trail-rise {
+  from {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 36px)) scale(0.4);
+  }
+}
+
+/* Slow light patterns on the water surface (caustics). */
+@keyframes caustics-drift {
+  from {
+    background-position:
+      0% 0%,
+      100% 20%,
+      40% 100%;
+  }
+  to {
+    background-position:
+      100% 60%,
+      0% 80%,
+      90% 0%;
+  }
+}
+
+/* The wave line drifts sideways forever; the SVG tile repeats seamlessly. */
+@keyframes wave-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Gentle sway for kelp and coral. */
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+
+/* Floating up and down, used by the iceberg. */
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Continuous rotation, used by the symbiosis illustration. */
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Soft bioluminescent pulse around the main call to action. */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(124 224 211 / 0.45);
+  }
+  50% {
+    box-shadow: 0 0 36px 10px rgb(124 224 211 / 0.35);
+  }
+}
+
+/* Scroll-driven parallax (see `.parallax` below). */
+@keyframes parallax-shift {
+  from {
+    transform: translateY(var(--parallax-from, 60px));
+  }
+  to {
+    transform: translateY(var(--parallax-to, -60px));
+  }
+}
+
+/* ---------------------------------------------------------------------------------------
+ * Animation utilities
+ * ------------------------------------------------------------------------------------- */
+
+/* Ambient bubbles. Size, position, speed and delay come from inline custom properties. */
+.bubble {
+  position: absolute;
+  bottom: -5vh;
+  left: var(--left);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 9999px;
+  border: 1px solid rgb(255 255 255 / 0.55);
+  background: radial-gradient(circle at 30% 30%, rgb(255 255 255 / 0.45), rgb(255 255 255 / 0.05));
+  animation:
+    bubble-rise var(--duration) linear var(--delay) infinite,
+    bubble-sway calc(var(--duration) / 4) ease-in-out var(--delay) infinite alternate;
+}
+
+/* Bubbles created under the pointer by `CursorTrail`. */
+.trail-bubble {
+  position: fixed;
+  width: var(--size, 6px);
+  height: var(--size, 6px);
+  border-radius: 9999px;
+  border: 1px solid rgb(124 224 211 / 0.8);
+  background: rgb(124 224 211 / 0.25);
+  transform: translate(-50%, -50%);
+  animation: trail-rise 900ms ease-out forwards;
+}
+
+.caustics {
+  background-image:
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgb(255 255 255 / 0.35), transparent 70%),
+    radial-gradient(ellipse 30% 40% at 50% 50%, rgb(255 255 255 / 0.25), transparent 70%),
+    radial-gradient(ellipse 50% 25% at 50% 50%, rgb(255 255 255 / 0.3), transparent 70%);
+  background-size:
+    60% 60%,
+    50% 70%,
+    70% 50%;
+  background-repeat: no-repeat;
+  animation: caustics-drift 18s ease-in-out infinite alternate;
+}
+
+.wave-track {
+  animation: wave-drift 14s linear infinite;
+}
+
+.sway {
+  transform-origin: 50% 100%;
+  animation: sway var(--sway-duration, 7s) ease-in-out var(--sway-delay, 0s) infinite;
+}
+
+.bob {
+  animation: bob 6s ease-in-out infinite;
+}
+
+.orbit {
+  animation: orbit var(--orbit-duration, 24s) linear infinite;
+}
+
+.glow-pulse {
+  animation: glow-pulse 3.2s ease-in-out infinite;
+}
+
+/* Cards float up slightly on hover. */
+.float-hover {
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+.float-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgb(124 224 211 / 0.25);
+}
+
+/* Reveal on scroll. `Reveal` sets data-state="hidden" only for content that starts below the
+ * viewport, so content is always visible without JavaScript. */
+.reveal {
+  transition:
+    opacity 0.9s ease-out,
+    transform 0.9s ease-out;
+}
+.reveal[data-state="hidden"] {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+/* Parallax with native CSS scroll-driven animations. Browsers without support simply show the
+ * layer without movement. Set `--parallax-from` / `--parallax-to` per layer for different speeds. */
+@supports (animation-timeline: view()) {
+  .parallax {
+    animation: parallax-shift linear both;
+    animation-timeline: view();
+  }
+}
+
+/* ---------------------------------------------------------------------------------------
+ * Reduced motion and small screens
+ * Why: visitors who ask for reduced motion get a calm, static page, and phones skip the
+ * heavier decorative effects.
+ * ------------------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .bubble,
+  .trail-bubble,
+  .caustics,
+  .wave-track,
+  .sway,
+  .bob,
+  .orbit,
+  .glow-pulse,
+  .parallax {
+    animation: none;
+  }
+  .float-hover,
+  .reveal {
+    transition: none;
+  }
+  .float-hover:hover {
+    transform: none;
+  }
+  .reveal[data-state="hidden"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .bubbles-layer,
+  .parallax-decoration {
+    display: none;
+  }
+}
