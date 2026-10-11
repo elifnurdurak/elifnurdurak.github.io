@@ -218,6 +218,23 @@ Contents: [Runtime](#runtime-dependencies) · [Development](#development-depende
 
 ---
 
+## CI/CD actions
+
+Used only in `.github/workflows/deploy.yml`. All are official GitHub actions pinned to commit SHAs.
+Verified 2026-10-11 against the latest release tags.
+
+| Action                          | Version | Purpose                                      |
+| ------------------------------- | ------- | -------------------------------------------- |
+| `actions/checkout`              | v7.0.1  | Fetches the repository code                  |
+| `actions/setup-node`            | v7.1.0  | Installs Node.js 24 and caches npm downloads |
+| `actions/configure-pages`       | v6.0.0  | Prepares the GitHub Pages deployment         |
+| `actions/upload-pages-artifact` | v5.0.0  | Packages `out/` for Pages                    |
+| `actions/deploy-pages`          | v5.0.1  | Publishes the package to GitHub Pages        |
+
+When updating an action, look up the new tag's commit SHA (`git ls-remote --tags <repo-url>`), update the pin and this table together.
+
+---
+
 ## Known advisories
 
 | Advisory                                                                                                                                      | Package chain                                                                                   | Scope                                                                                                | Status                                                                                                                                                                                    |
